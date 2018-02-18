@@ -181,4 +181,7 @@ function parse_git_dirty {
 
 export PS1="\[$WHITE\]\n\[$PURPLE\]# \[$LBLUE\]\u\[$WHITE\] @ \[$GREEN\]\h\[$WHITE\] in \[$ORANGE\]\w\`parse_git_branch\` \n\[$PINK\]\\$ \[$WHITE\]"
 
+alias gitlog='git log -20 --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
+alias gitlogall='git log --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
+
 [[ -s ~/.bashrc_local ]] && source ~/.bashrc_local
