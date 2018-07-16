@@ -30,39 +30,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
@@ -87,10 +54,28 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
+# some more aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+
+# better than ..
+up(){
+    local d=""
+    limit=$1
+    for ((i=1 ; i <= limit ; i++))
+        do
+        d=$d/..
+        done
+    d=$(echo $d | sed 's/^\///')
+    if [ -z "$d" ]; then
+        d=..
+    fi
+    cd $d
+}
+
+
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -119,17 +104,29 @@ fi
 # added by Anaconda3 installer
 export PATH="/home/linusmarco/anaconda3/bin:$PATH"
 
-
 BOLD=$'\e[1m'
 NORMAL=$'\e[0m'
 
-WHITE=$'\e[97m'
-LBLUE=$'\e[36m'
-PURPLE=$'\e[35m'
-GREEN=$'\e[32m'
-ORANGE=$'\e[33m'
-YELLOW=$'\e[37m'
-PINK=$'\e[31m'
+GREEN_BACK=$'\e[1;37;42m'
+RED_BACK=$'\e[1;37;41m'
+
+CYAN=$'\e[0;36;49m'
+BLUE=$'\e[0;34;49m'
+PURPLE=$'\e[0;35;49m'
+GREEN=$'\e[0;32;49m'
+YELLOW=$'\e[0;33;49m'
+WHITE=$'\e[0;37;49m'
+RED=$'\e[0;31;49m'
+GRAY=$'\e[0;30;49m'
+
+CYAN_BOLD=$'\e[1;36;49m'
+BLUE_BOLD=$'\e[1;34;49m'
+PURPLE_BOLD=$'\e[1;35;49m'
+GREEN_BOLD=$'\e[1;32;49m'
+YELLOW_BOLD=$'\e[1;33;49m'
+WHITE_BOLD=$'\e[1;37;49m'
+RED_BOLD=$'\e[1;31;49m'
+GRAY_BOLD=$'\e[1;30;49m'
 
 # get current branch in git repo
 function parse_git_branch() {
@@ -137,7 +134,7 @@ function parse_git_branch() {
     if [ ! "$BRANCH" == "" ]
     then
         STAT=`parse_git_dirty`
-        echo "$WHITE on $PINK[$BRANCH |$STAT]"
+        echo "$WHITE on $RED_BOLD[$BRANCH |$STAT]"
     else
         echo ""
     fi
@@ -179,7 +176,19 @@ function parse_git_dirty {
     fi
 }
 
-export PS1="\[$WHITE\]\n\[$PURPLE\]# \[$LBLUE\]\u\[$WHITE\] @ \[$GREEN\]\h\[$WHITE\] in \[$ORANGE\]\w\`parse_git_branch\` \n\[$PINK\]\\$ \[$WHITE\]"
+function status {
+    local EXIT="$?"
+    local DATE=$(date +%H:%M)
+
+    if [ $EXIT != 0 ]; then
+        echo "$RED_BACK[$DATE]"
+    else 
+        echo "$GREEN_BACK[$DATE]"
+    fi
+}
+
+export PS1="\[$WHITE\]\`status\`\n\n\[$RED\]# \[$CYAN_BOLD\]\u\[$WHITE\] @ \[$GREEN_BOLD\]\h\[$WHITE\] in \[$YELLOW_BOLD\]\w\`parse_git_branch\` \n\[$RED\]\\$ \[$WHITE\]"
+export PS2="\[$RED\]> \[$WHITE\]"
 
 alias gitlog='git log -20 --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
 alias gitlogall='git log --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
