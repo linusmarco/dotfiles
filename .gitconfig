@@ -3,3 +3,7 @@
 # Please adapt and uncomment the following lines:
 	name = Linus Marco
 	email = lmarco163@gmail.com
+[push]
+	default = simple
+[alias]
+	dc = diff --cached
