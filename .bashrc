@@ -187,7 +187,7 @@ function status {
     fi
 }
 
-export PS1="\[$WHITE\]\`status\`\n\n\[$RED\]# \[$CYAN_BOLD\]\u\[$WHITE\] @ \[$GREEN_BOLD\]\h\[$WHITE\] in \[$YELLOW_BOLD\]\w\`parse_git_branch\` \n\[$RED\]\\$ \[$WHITE\]"
+export PS1="\[$WHITE\]\`status\`\[$WHITE\]\n\n\[$RED\]# \[$CYAN_BOLD\]\u\[$WHITE\] @ \[$GREEN_BOLD\]\h\[$WHITE\] in \[$YELLOW_BOLD\]\w\`parse_git_branch\` \n\[$RED\]\\$ \[$WHITE\]"
 export PS2="\[$RED\]> \[$WHITE\]"
 
 alias gitlog='git log -20 --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
