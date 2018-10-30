@@ -130,11 +130,15 @@ GRAY_BOLD=$'\e[1;30;49m'
 
 # get current branch in git repo
 function parse_git_branch() {
-    BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-    if [ ! "$BRANCH" == "" ]
-    then
-        STAT=`parse_git_dirty`
-        echo "$WHITE on $RED_BOLD[$BRANCH |$STAT]"
+    if $SHOWGITSTATUS; then
+        BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+        if [ ! "$BRANCH" == "" ]
+        then
+            STAT=`parse_git_dirty`
+            echo "$WHITE on $RED_BOLD[$BRANCH |$STAT]"
+        else
+            echo ""
+        fi
     else
         echo ""
     fi
@@ -186,6 +190,8 @@ function status {
         echo "$GREEN_BACK[$DATE]"
     fi
 }
+
+export SHOWGITSTATUS=true
 
 export PROMPT_COMMAND="printf '`status`\n\n$WHITE_BOLD'"
 export PS1="\[$RED\]# \[$CYAN_BOLD\]\u\[$WHITE\] @ \[$GREEN_BOLD\]\h\[$WHITE\] in \[$YELLOW_BOLD\]\w\`parse_git_branch\` \n\[$RED\]\\$ \[$WHITE\]"
