@@ -191,13 +191,26 @@ function status {
     fi
 }
 
-export SHOWGITSTATUS=true
+# git aliases
+alias gitlog='git log -20 --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
+alias gitlogall='git log --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
+alias glog='gitlog'
+alias gstat='git status'
+alias gcomm='git commit'
+alias gadd='git add .'
+alias gdiff='git diff'
+alias gdif='git diff'
+alias gdifc='git diff --cached'
+alias gdiffc='git diff --cached'
 
+export SHOWGITSTATUS=true
+alias nogitstat='export SHOWGITSTATUS=false'
+alias showgitstat='export SHOWGITSTATUS=true'
+
+
+# prompt
 export PROMPT_COMMAND="printf '`status`\n\n$WHITE_BOLD'"
 export PS1="\[$RED\]# \[$CYAN_BOLD\]\u\[$WHITE\] @ \[$GREEN_BOLD\]\h\[$WHITE\] in \[$YELLOW_BOLD\]\w\`parse_git_branch\` \n\[$RED\]\\$ \[$WHITE\]"
 export PS2="\[$RED\]> \[$WHITE\]"
-
-alias gitlog='git log -20 --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
-alias gitlogall='git log --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
 
 [[ -s ~/.bashrc_local ]] && source ~/.bashrc_local
