@@ -7,3 +7,11 @@
 	default = simple
 [alias]
 	dc = diff --cached
+	ck = checkout
+	tlog = log
+	tpush = push
+	tpull = pull
+	tstatus = status
+	tcommit = commit
+	comit = commit
+	commmit = commit
