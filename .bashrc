@@ -101,9 +101,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# added by Anaconda3 installer
-export PATH="/home/linusmarco/anaconda3/bin:$PATH"
-
 BOLD=$'\e[1m'
 NORMAL=$'\e[0m'
 
@@ -192,8 +189,8 @@ function status {
 }
 
 # git aliases
-alias gitlog='git log -20 --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
-alias gitlogall='git log --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(15)%an%Creset %Cgreen|%Creset %C(yellow)%<(31)%ad%Creset %Cgreen|%Creset %s"'
+alias gitlog='git log -20 --date=format:"%a %m-%d-%y %H:%M:%S" --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(12,trunc)%an%Creset %Cgreen|%Creset %C(yellow)%<(21)%ad%Creset %Cgreen|%Creset %<(50,trunc)%s"'
+alias gitlogall='git log --date=format:"%a %m-%d-%y %H:%M:%S" --pretty=format:"%C(cyan)%h%Creset %Cgreen|%Creset %C(red)%<(12,trunc)%an%Creset %Cgreen|%Creset %C(yellow)%<(21)%ad%Creset %Cgreen|%Creset %<(50,trunc)%s"'
 alias glog='gitlog'
 alias gstat='git status'
 alias gcomm='git commit'
@@ -202,6 +199,7 @@ alias gdiff='git diff'
 alias gdif='git diff'
 alias gdifc='git diff --cached'
 alias gdiffc='git diff --cached'
+alias gi='git'
 
 export SHOWGITSTATUS=true
 alias nogitstat='export SHOWGITSTATUS=false'
