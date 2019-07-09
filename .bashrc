@@ -101,6 +101,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# added by Anaconda3 installer	
+export PATH="/home/linusmarco/anaconda3/bin:$PATH"
+
 BOLD=$'\e[1m'
 NORMAL=$'\e[0m'
 
