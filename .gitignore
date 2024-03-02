@@ -1,9 +1,0 @@
-# ignore all
-*
-
-# except these:
-!.gitignore
-!.gitconfig
-
-!.bash_profile
-!.bashrc

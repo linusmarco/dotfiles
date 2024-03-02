@@ -210,7 +210,7 @@ alias showgitstat='export SHOWGITSTATUS=true'
 
 
 # prompt
-export PROMPT_COMMAND="printf '`status`\n\n$WHITE_BOLD'"
+export PROMPT_COMMAND="printf '`status`$WHITE_BOLD\n\n'"
 export PS1="\[$RED\]# \[$CYAN_BOLD\]\u\[$WHITE\] @ \[$GREEN_BOLD\]\h\[$WHITE\] in \[$YELLOW_BOLD\]\w\`parse_git_branch\` \n\[$RED\]\\$ \[$WHITE\]"
 export PS2="\[$RED\]> \[$WHITE\]"
 
